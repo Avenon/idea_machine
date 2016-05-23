@@ -1,5 +1,5 @@
 class IdeasController < ApplicationController
-  before_action :find_idea, only: [:show, :edit, :update, :destroy]
+  before_action :set_idea, only: [:show, :edit, :update, :destroy]
 
   def index
     @ideas = Idea.all
@@ -13,7 +13,7 @@ class IdeasController < ApplicationController
   end
 
   def create
-    @idea = Idea.create(get_idea_params)
+    @idea = Idea.create(idea_params)
 
     if @idea.save
       redirect_to ideas_path
@@ -26,7 +26,7 @@ class IdeasController < ApplicationController
   end
 
   def update
-    @idea.update_attributes(get_idea_params)
+    @idea.update_attributes(idea_params)
 
     if @idea.errors.empty?
       redirect_to @idea
@@ -37,16 +37,16 @@ class IdeasController < ApplicationController
 
   def destroy
     @idea.destroy
-    redirect_to idea_path
+    redirect_to ideas_path
   end
 
   private
 
-  def get_idea_params
+  def idea_params
     params.require(:idea).permit(:idea_text)
   end
 
-  def find_idea
+  def set_idea
     @idea = Idea.find(params[:id])
   end
 end
