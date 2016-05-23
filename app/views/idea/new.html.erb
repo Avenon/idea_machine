@@ -1,0 +1,19 @@
+<h2> <%= t :new_card_title %></h2>
+
+<% unless @decks.exists? %>
+<h3> <%= t :alert_card %>! </h3>
+<% else %>
+<h3> <%= t :check_translate_title %></h3>
+<div class="form-horizontal">
+<%= simple_form_for @card do |f| %>
+<%= render partial: "form", locals: { f: f } %>
+<%= f.hidden_field :user_id, value: current_user.id %>
+<%= f.file_field :avatar %>
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+<%= f.button :submit, (t :new_card_title), class: "btn btn-info btn-sm" %>
+</div>
+</div>
+<% end %>
+</div>
+<% end %>

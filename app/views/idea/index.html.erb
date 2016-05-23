@@ -1,0 +1,19 @@
+<h2>
+  Список идей
+</h2>
+
+<table>
+  <tr>
+    <th>Текст</th>
+    <th>Действие</th>
+  </tr>
+
+  <% @ideas.each do |idea| %>
+    <tr>
+      <td><%= idea.idea_text %></td>
+      <td><%= link_to "Показать", idea_path(idea) %>
+        <%= link_to "Изменить", edit_idea_path(idea) %>
+        <%= link_to "Удалить", idea_path(idea), method: :delete, data: { confirm: (t :del_confirm) } %></td>
+    </tr>
+  <% end %>
+</table>

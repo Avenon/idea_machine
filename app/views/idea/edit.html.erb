@@ -1,0 +1,21 @@
+<h2> <%= Редактировать идею %></h2>
+
+<%= form_tag @idea do %>
+<%= render partial: "form", locals: { f: f } %>
+  <%= text_field_tag :value %>
+  <button>Отправить</button>
+<% end %>
+
+
+
+<%= simple_form_for @card do |f| %>
+<%= render partial: "form", locals: { f: f } %>
+<%= f.hidden_field :user_id, value: current_user.id %>
+<%= f.file_field :avatar %>
+<div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10">
+<%= f.button :submit, (t :edit_confirm), class: "btn btn-info btn-sm" %>
+</div>
+</div>
+<% end %>
+</div>
