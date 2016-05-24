@@ -19,18 +19,18 @@
 # To learn more, please read the Rails Internationalization guide
 # available at http://guides.rubyonrails.org/i18n.html.
 
-en:
-  ideagenerator: "Idea machine"
-  description: "Idea description"
-  all_ideas: "All ideas"
-  edit_idea: "Edit idea"
-  add_idea: "Add idea"
-  your_idea: "Your idea"
-  list_idea: "Ideas list"
-  actions: "Actions"
-  show: "Show"
-  edit: "Edit"
-  delete: "Delete"
-  confirm_del: "Are you sure?"
-  input_idea: "Input your idea"
-  idea_create: "Create idea"
+ru:
+  ideagenerator: "Генератор идей"
+  description: "Описание идеи"
+  all_ideas: "Все идеи"
+  edit_idea: "Редактировать идею"
+  add_idea: "Добавить идею"
+  your_idea: "Ваша идея"
+  list_idea: "Список идей"
+  actions: "Действия"
+  show: "Показать"
+  edit: "Изменить"
+  delete: "Удалить"
+  confirm_del: "Уверены?"
+  input_idea: "Введите идею"
+  idea_create: "Создать идею"
