@@ -1,0 +1,11 @@
+<h2> Введите идею</h2>
+
+<%= form_for(@idea) do |f| %>
+  <div class="field">
+    <%= f.label "Ваша идея" %><br>
+    <%= f.text_field :idea_text %>
+  </div>
+  <div class="actions">
+    <%= f.submit "Создать идею" %>
+  </div>
+<% end %>
