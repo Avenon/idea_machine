@@ -43,7 +43,7 @@ class IdeasController < ApplicationController
   private
 
   def idea_params
-    params.require(:idea).permit(:idea_text)
+    params.require(:idea).permit(:description)
   end
 
   def set_idea
