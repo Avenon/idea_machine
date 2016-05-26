@@ -1,20 +1,20 @@
 <h2>
-  Список идей
+  <%= t :list_idea %>
 </h2>
 
 <table>
   <tr>
-    <th>Текст</th>
-    <th>Действие</th>
+    <th><%= t :description %></th>
+    <th><%= t :actions %></th>
   </tr>
 
   <% @ideas.each do |idea| %>
     <tr>
-      <td><%= idea.idea_text %></td>
+      <td><%= idea.description %></td>
       <td>
-        <%= link_to "Показать", idea_path(idea) %>
-        <%= link_to "Изменить", edit_idea_path(idea) %>
-        <%= link_to "Удалить", idea_path(idea), method: :delete, data: { confirm: "Уверены?" } %>
+        <%= link_to (t :show), idea_path(idea) %>
+        <%= link_to (t :edit), edit_idea_path(idea) %>
+        <%= link_to (t :delete), idea_path(idea), method: :delete, data: { confirm: (t :confirm_del) } %>
       </td>
     </tr>
   <% end %>

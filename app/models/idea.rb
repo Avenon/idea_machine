@@ -1,3 +1,4 @@
 class Idea < ActiveRecord::Base
-validates :idea_text, presence: true
+  belongs_to :user
+  validates :description, presence: true
 end
