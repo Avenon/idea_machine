@@ -34,3 +34,5 @@ ru:
   confirm_del: "Уверены?"
   input_idea: "Введите идею"
   idea_create: "Создать идею"
+  sign_up: "Регистрация"
+  sign_in: "Войти"

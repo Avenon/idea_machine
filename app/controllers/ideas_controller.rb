@@ -2,7 +2,7 @@ class IdeasController < ApplicationController
   before_action :set_idea, only: [:show, :edit, :update, :destroy]
 
   def index
-    @ideas = Idea.all
+    @ideas = current_user.ideas
   end
 
   def show
@@ -43,7 +43,7 @@ class IdeasController < ApplicationController
   private
 
   def idea_params
-    params.require(:idea).permit(:description)
+    params.require(:idea).permit(:description, :user_id)
   end
 
   def set_idea

@@ -7,7 +7,10 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-
+<% if user_signed_in? %>
+  <li><%= link_to 'Edit account', edit_user_registration_path %></li>
+  <li><%= link_to 'Sign out', destroy_user_session_path, :method=>'delete' %></li>
+<% end %>
 <%= yield %>
   <li><%= link_to (t :all_ideas), ideas_path %></li>
   <li><%= link_to (t :add_idea), new_idea_path %></li>
