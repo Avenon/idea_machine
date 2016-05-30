@@ -1,4 +1,23 @@
-div class="center hero-unit"
-  h1="Welcome to the Sample App"
-  h2="This is the home page for the idea machine"
-  = link_to "Sign up now!", sign_up_path, class: "btn btn-large btn-primary"
+- if user_signed_in?
+  = link_to (t :add_idea), new_idea_path, class: "btn btn-info"
+  - if @ideas.nil?
+    h2 = "Идей нет"
+  - else
+    h2 = t :list_idea
+    table
+      tr
+        th = t :description
+        th = t :actions
+      - @ideas.each do |idea|
+        tr
+          td = idea.description
+          td
+            = link_to (t :show), idea_path(idea)
+            = link_to (t :edit), edit_idea_path(idea)
+            = link_to (t :delete), idea_path(idea), method: :delete, data: { confirm: (t :confirm_del) }
+
+- else
+  div class="center hero-unit"
+    h1="Welcome to the Idea Machine"
+    h2="This is the home page for the idea machine"
+    = link_to "Sign up now!", sign_up_path, class: "btn btn-large btn-primary"
