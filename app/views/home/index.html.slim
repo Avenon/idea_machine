@@ -1,6 +1,6 @@
 - if user_signed_in?
-  = link_to (t :add_idea), new_idea_path, class: "btn btn-info"
-  - if @ideas.nil?
+
+  - unless @ideas.exists?
     h2 = "Идей нет"
   - else
     h2 = t :list_idea
