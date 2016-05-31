@@ -1,0 +1,12 @@
+h2 = t :list_idea
+table
+  tr
+    th = t :description
+  - @ideas.each do |idea|
+    tr
+      td
+        = idea.description
+        br
+        = link_to (t :show), idea_path(idea)
+        = link_to (t :edit), edit_idea_path(idea)
+        = link_to (t :delete), idea_path(idea), method: :delete, data: { confirm: (t :confirm_del) }

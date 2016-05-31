@@ -1,0 +1,26 @@
+doctype html
+html
+  head
+    title Idea Machine
+    meta name="keywords" content="template language"
+    = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+    = csrf_meta_tags
+
+  body
+    header class="navbar navbar-inverse navbar-fixed-top"
+        div class="container"
+          = link_to "Idea Machine", root_path, id: "logo"
+          nav
+            ul class="nav navbar-nav navbar-right"
+              li = link_to "Home", root_path
+              - if user_signed_in?
+                li = link_to "Profile", edit_profile_path
+                li = link_to "Log out", sign_out_path
+              - else
+                li = link_to "Sign in", sign_in_path
+                li = link_to "Sign up", sign_up_path
+    - if user_signed_in?
+      = link_to (t :all_ideas), ideas_path, class: "btn btn-info"
+      = link_to (t :add_idea), new_idea_path, class: "btn btn-info"
+    == yield
