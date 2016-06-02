@@ -16,44 +16,44 @@ module IdeaExternal
 
     resource :idea do
 
-      desc 'Create an idea.'
-      params do
-        requires :description, type: String, description: 'My idea'
+      desc 'Sign Up'
+
+      post '/signup' do
       end
 
-      post '/ideas/new' do
-#        authenticate!
-        Idea.create!({
-          user_id: current_user,
-          description: 'test'
-        })
+      desc 'Sign In'
+      post '/signin' do
       end
 
-      desc 'Return all personal ideas'
+      desc 'Get Token'
+      get '/get_token' do
+      end
+
+      desc 'Create idea'
+      post '/new' do
+      end
+
+      desc 'Update idea'
+      post '/edit' do
+      end
+
+      desc 'Get ideas'
       get '/all' do
-#        authenticate!
-#        current_user.ideas
         Idea.all
       end
 
-      desc 'Return ideas'
-
-        params do
-          optional :token, type: String, default: nil
-        end
-
-        get '/ideas' do
-          ideas = Idea.all
-
-          ideas.each do |idea|
-            response = {
-            description: idea.description,
-            status: 200
-          }
-          response.as_json
-        end
+      desc 'Delete idea'
+      delete '/delete' do
       end
+
+      desc 'Reset Password'
+      post '/reset_password' do
+      end
+
+      desc 'Clear Token'
+      get '/clear_token' do
+      end
+
     end
   end
 end
-
