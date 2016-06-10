@@ -9,6 +9,9 @@ Rails.application.routes.draw do
     get 'edit_profile', to: 'devise/registrations#edit'
     get 'sign_out', to: 'devise/sessions#destroy'
   end
+
+  mount IdeaExternal::API => '/api'
+  mount GrapeSwaggerRails::Engine => '/swagger'
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
 
