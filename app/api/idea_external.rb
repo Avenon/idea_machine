@@ -1,59 +1,121 @@
 module IdeaExternal
   class API < Grape::API
-    version 'v1', :using => :path
+      version 'v1', using: :header, vendor: 'ideamachine'
+      format :json
 
-    format :json
+    resource 'users' do
 
-    helpers do
-#      def current_user
-#        @current_user ||= User.authorize!(env)
-#      end
+      desc 'Test endpoint users'
+      get '/testuser' do
+        { data: "TEST_user" }
+      end
 
-#      def authenticate!
-#        error!('401 Unauthorized', 401) unless current_user
-#      end
+      desc 'List all users'
+      params do
+        optional :limit, type: String, desc: 'limit view users'
+      end
+      get '/' do
+        User.all.limit(params[:limit])
+      end
+
+      desc 'Create a user.'
+      params do
+        requires :useremail, type: String, desc: 'User email'
+        requires :userpass, type: String, desc: 'User password'
+      end
+      post do
+        User.create!({
+          email: params[:useremail],
+          password: params[:userpass]
+          })
+      end
+
+      desc 'Update a user.'
+      params do
+        requires :id, type: String, desc: 'ID user'
+        optional :useremail, type: String, desc: 'User email'
+        optional :userpass, type: String, desc: 'User password'
+      end
+      put ':id' do
+          User.find(params[:id]).update({
+            email: params[:useremail],
+            password: params[:userpass]
+            })
+      end
     end
 
-    resource :idea do
+    resource 'ideas' do
 
-      desc 'Sign Up'
-
-      post '/signup' do
+      desc 'Test endpoint ideas'
+      get '/testidea' do
+        { data: "TEST_IDEA" }
       end
 
-      desc 'Sign In'
-      post '/signin' do
+      desc 'List all ideas.'
+      params do
+        optional :limit, type: String, desc: 'limit view ideas'
+      end
+      get '/' do
+        Idea.all.limit(params[:limit])
       end
 
-      desc 'Get Token'
-      get '/get_token' do
+      desc 'Create an idea.'
+      params do
+        requires :ideadescription, type: String, desc: 'Idea description'
+        requires :user, type: String, desc: 'User id'
+        # optional :test, type: String, desc: 'test' является необязательным параметром
+      end
+      post do
+        Idea.create!({
+          user_id: params[:user],
+          description: params[:ideadescription]
+          })
+        #Idea.create! params.permit(:user_id, :description)
       end
 
-      desc 'Create idea'
-      post '/new' do
+      desc 'Read an idea.'
+      params do
+        requires :id, type: String, desc: 'Idea id'
+      end
+      get ':id' do
+        Idea.find(params[:id])
       end
 
-      desc 'Update idea'
-      post '/edit' do
+      desc 'Update an idea.'
+      params do
+        requires :id, type: String, desc: 'ID idea'
+        requires :ideadescription, type: String, desc: 'Idea description'
+        requires :user, type: String, desc: 'User id'
+      end
+      put ':id' do
+          Idea.find(params[:id]).update({
+            user_id: params[:user],
+            description: params[:ideadescription]
+            })
       end
 
-      desc 'Get ideas'
-      get '/all' do
-        Idea.all
+      desc 'Delete an idea.'
+      params do
+        requires :id, type: String, desc: 'Idea id'
       end
-
-      desc 'Delete idea'
-      delete '/delete' do
+      delete ':id' do
+        Idea.find(params[:id]).destroy
       end
-
-      desc 'Reset Password'
-      post '/reset_password' do
-      end
-
-      desc 'Clear Token'
-      get '/clear_token' do
-      end
-
     end
+
+    add_swagger_documentation \
+      :info => {
+        :title => "Idea machine API"
+      },
+      :hide_documentation_path => true,
+      :mount_path => "/swagger_doc",
+      :markdown => false,
+      :api_version => 'v1'
+
+    before do
+        header['Access-Control-Allow-Origin'] = '*'
+        header['Access-Control-Request-Method'] = '*'
+    end
+
   end
 end

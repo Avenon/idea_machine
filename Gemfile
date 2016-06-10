@@ -26,6 +26,9 @@ gem 'devise'
 gem 'slim-rails'
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'grape'
+gem 'grape-swagger'
+gem 'grape-swagger-rails'
+gem 'rack-fiber_pool'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
