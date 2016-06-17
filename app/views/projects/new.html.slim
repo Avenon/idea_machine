@@ -1,0 +1,14 @@
+h2 = t :add_project
+.row
+  .col-md-4
+  .col-md-4
+    = form_for(@project) do |f|
+      = f.label (t :your_project_title)
+      = f.text_field :title, class: "form-control"
+      br
+      = f.label (t :your_project_description)
+      = f.text_area :descrition, class: "form-control"
+      = f.hidden_field :user_id, value: current_user.id
+      br
+      = f.submit (t :projects_create), class: "btn btn-default btn-block"
+

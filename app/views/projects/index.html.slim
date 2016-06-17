@@ -1,0 +1,18 @@
+h2 = t :list_project
+.row
+  .col-md-2
+  .col-md-8
+    table class="table table-striped table-bordered"
+      tr
+        th = t :your_project_title
+        th = t :your_project_description
+        th = t :actions
+        - @projects.each do |project|
+          tr
+            td = project.title
+            td = project.descrition
+            td
+              div class="btn-group"
+                = link_to (t :show), project_path(project), class: "btn btn-default btn-xs"
+                = link_to (t :edit), edit_project_path(project), class: "btn btn-default btn-xs"
+                = link_to (t :delete), project_path(project), method: :delete, data: { confirm: (t :confirm_del) }, class: "btn btn-default btn-xs"

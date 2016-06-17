@@ -29,6 +29,7 @@ gem 'grape'
 gem 'grape-swagger'
 gem 'grape-swagger-rails'
 gem 'rack-fiber_pool'
+gem 'doorkeeper'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
