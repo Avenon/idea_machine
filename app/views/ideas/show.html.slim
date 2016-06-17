@@ -1,9 +1,7 @@
-  div class="form-group"
-    = f.label (t :add_idea), class: "col-sm-3 control-label"
-    div class="col-sm-6"
+h2 = t :add_idea
+.row
+  .col-md-5
+  .col-md-2
+    = form_for(@idea) do |f|
+      = f.label (t :add_idea)
       = f.text_area :description, class: "form-control"
-      = f.hidden_field :user_id, value: current_user.id
-
-  div class="form-group"
-    div class="col-sm-offset-3 col-sm-6"
-      = f.submit t :idea_create, class: "btn btn-default"

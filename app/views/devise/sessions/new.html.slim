@@ -1,25 +1,18 @@
 h2 Вход
-div class="col-sm-4"
-= form_for(resource, as: resource_name, url: session_path(resource_name), html: {class: "form-horizontal col-sm-4 jumbotron"}) do |f|
-  = devise_error_messages!
+.row
+  .col-md-5
+  .col-md-2
+    = form_for(resource, as: resource_name, url: session_path(resource_name)) do |f|
+      = devise_error_messages!
 
-  div class="form-group"
-    = f.label :email, class: "col-sm-3 control-label"
-    div class="col-sm-6"
+      = f.label :email
       = f.email_field :email, autofocus: true, class: "form-control"
-
-  div class="form-group"
-    = f.label :password, class: "col-sm-3 control-label"
-    div class="col-sm-6"
+      br/
+      = f.label :password
       = f.password_field :password, autocomplete: "off", class: "form-control"
-
-  - if devise_mapping.rememberable?
-    div class="form-group"
-      div class="col-sm-3"
-      div class="col-sm-6"
+      br/
+      - if devise_mapping.rememberable?
         = f.check_box :remember_me
         = f.label :remember_me
 
-  div class="form-group"
-    div class="col-sm-offset-3 col-sm-6"
-      = f.submit "Log in", class: "btn btn-default"
+      = f.submit "Log in", class: "btn btn-default btn-block"
