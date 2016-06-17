@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   root to: "home#index"
   resources :ideas
   resources :users
+  resources :projects
   devise_scope :user do
     get 'sign_in', to: 'devise/sessions#new'
     get 'sign_up', to: 'devise/registrations#new'

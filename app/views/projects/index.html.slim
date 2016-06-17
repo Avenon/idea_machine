@@ -1,0 +1,13 @@
+h2 = t :list_project
+table
+  tr
+    th = t :description
+  - @projects.each do |project|
+    tr
+      td
+        = project.title
+        = project.descrition
+        br
+        = link_to (t :show), project_path(project)
+        = link_to (t :edit), edit_project_path(project)
+        = link_to (t :delete), project_path(project), method: :delete, data: { confirm: (t :confirm_del) }
