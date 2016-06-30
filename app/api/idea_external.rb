@@ -1,7 +1,15 @@
+require 'doorkeeper/grape/helpers'
+
 module IdeaExternal
   class API < Grape::API
-      version 'v1', using: :header, vendor: 'ideamachine'
-      format :json
+    helpers Doorkeeper::Grape::Helpers
+
+    before do
+      doorkeeper_authorize!
+    end
+
+    version 'v1', using: :header, vendor: 'ideamachine'
+    format :json
 
     resource 'users' do
 
