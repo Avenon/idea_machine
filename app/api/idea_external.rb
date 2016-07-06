@@ -114,7 +114,14 @@ resource 'projects' do
       optional :limit, type: String, desc: 'limit view ideas'
     end
     get '/' do
-      Idea.all.limit(params[:limit])
+      ideas = Idea.all.limit(params[:limit])
+         ideas.map do |idea|
+          { id: idea.id,
+            description: idea.description,
+            user_id: idea.user_id,
+            project_id: idea.project_id }
+
+        end
     end
 
     desc 'Create an idea.'
