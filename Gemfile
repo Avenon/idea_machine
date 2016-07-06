@@ -30,6 +30,8 @@ gem 'grape-swagger'
 gem 'grape-swagger-rails'
 gem 'rack-fiber_pool'
 gem 'doorkeeper'
+# use for easy test json response
+gem 'airborne'
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
