@@ -1,13 +1,22 @@
 require "rails_helper"
 
-describe 'sample spec' do
-  it 'should validate types' do
-    get 'http://localhost:3000/api/ideas/9'
-    expect_json_types(description: :string)
-  end
-
-  it 'should validate values' do
-    get 'http://localhost:3000/api/ideas/9'
-    expect_json(description: "test_test")
+RSpec.describe IdeaExternal::API do # Your API class
+  let(:idea) { create(:idea) } # You need Idea factory for this
+  
+  describe 'GET /api/ideas/:id'
+    it 'return idea' do
+      # setup
+      # nothing to do here, because we lazily created our object in 'let' statement
+      
+      # exercise
+      get "/api/ideas/#{idea.id}", {params: :here},  {auth_header: :here, version_header: :here} # last two hashes are examples
+      
+      # validate
+      expect_json_sizes 1
+      expect_json_keys 'idea', [:id, :description, :user_id, :project_id]
+      
+      # cleanup
+      # In this simple case all cleaning is performed by database_cleaner
+    end
   end
 end
