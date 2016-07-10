@@ -1,13 +1,26 @@
 require "rails_helper"
 
-describe 'sample spec' do
-  it 'should validate types' do
-    get 'http://localhost:3000/api/ideas/9'
-    expect_json_types(description: :string)
-  end
+  RSpec.describe API::V1 do  #API class
 
-  it 'should validate values' do
-    get 'http://localhost:3000/api/ideas/9'
-    expect_json(description: "test_test")
+  let(:idea) { FactoryGirl.create(:idea) } #Create idea with FactoryGirl define
+#GET /api/ideas/:id
+  describe 'GET /api/ideas/:id' do
+    it 'return idea' do
+      # setup
+      # nothing to do here, because we lazily created our object in 'let' statement
+
+      # exercise
+      #get "/api/ideas/#{idea.id}", {params: :here} ,  {auth_header: :here, version_header: :here} # last two hashes are examples
+      #get "http://localhost:3000/api/v1/ideas/1"
+      get "http://localhost:3000/api/v1/ideas/1"
+      # validate
+      # expect_json_sizes 1
+      # expect_json_keys 'idea', [:id, :description, :user_id, :project_id]
+      puts idea.description
+      puts idea.id
+
+      # cleanup
+      # We defined database_cleaner in rails_helper.rb
+    end
   end
 end
