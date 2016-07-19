@@ -1,0 +1,7 @@
+= div_for idea do
+  = h(idea.description)
+  br
+  sup = "From " + time_ago_in_words(idea.created_at)
+  br
+  = raw tag_links(idea.all_tags)
+  hr
