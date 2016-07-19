@@ -1,9 +1,8 @@
 Rails.application.routes.draw do
   mount API::Root => '/'
   use_doorkeeper
-  use_doorkeeper
   devise_for :users, path: 'auth', path_names: { sign_in: 'login', sign_out: 'logout', password: 'secret', confirmation: 'verification', unlock: 'unblock', registration: 'register', sign_up: 'cmon_let_me_in' }
-  root to: "home#index"
+  root to: "ideas#index"
   resources :ideas
   resources :users
   resources :projects
@@ -13,7 +12,7 @@ Rails.application.routes.draw do
     get 'edit_profile', to: 'devise/registrations#edit'
     get 'sign_out', to: 'devise/sessions#destroy'
   end
-
+  get 'tags/:tag', to: 'ideas#index', as: "tag"
 
   #mount IdeaExternal::API => '/api'
   mount GrapeSwaggerRails::Engine => '/swagger'

@@ -1,0 +1,4 @@
+var new_idea = $("<%= escape_javascript(render(partial: @idea))%>").hide();
+$('#ideas').prepend(new_idea);
+$('#idea_<%= @idea.id %>').fadeIn('slow');
+$('#new_idea')[0].reset();

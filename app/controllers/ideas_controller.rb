@@ -3,7 +3,11 @@ class IdeasController < ApplicationController
   before_action :set_idea, only: [:show, :edit, :update, :destroy]
 
   def index
-    @ideas = current_user.ideas
+    if params[:tag]
+      @ideas = Idea.tagged_with(params[:tag])
+    else
+      @ideas = current_user.ideas
+    end
   end
 
   def show
@@ -14,12 +18,15 @@ class IdeasController < ApplicationController
   end
 
   def create
-    @idea = Idea.create(idea_params)
-
-    if @idea.save
-      redirect_to ideas_path
-    else
-      render "new"
+    @idea = Idea.new(idea_params)
+    respond_to do |format|
+      if @idea.save
+        #redirect_to ideas_path
+        format.js
+      else
+        #render "new"
+        format.html { render root_path }
+      end
     end
   end
 
@@ -44,7 +51,7 @@ class IdeasController < ApplicationController
   private
 
   def idea_params
-    params.require(:idea).permit(:description, :user_id)
+    params.require(:idea).permit(:description, :user_id, :all_tags)
   end
 
   def set_idea
