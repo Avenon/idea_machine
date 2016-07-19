@@ -1,5 +1,7 @@
 = form_for(Idea.new, remote: true) do |f|
-  = f.text_area :description, placeholder: "Ваша идея", rows: 5
-  = f.text_field :all_tags, placeholder: "Тэги через запятую"
+  = f.text_area :description, placeholder: "Ваша идея", rows: 5, class: "form-control"
+  br
+  = f.text_field :all_tags, placeholder: "Тэги через запятую", class: "form-control"
   = f.hidden_field :user_id, value: current_user.id
-  = f.submit "Отправить", class: "button"
+  br
+  = f.submit "Отправить", class: "btn btn-default btn-block"
