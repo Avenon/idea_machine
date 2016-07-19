@@ -16,6 +16,8 @@
 !/log/.keep
 /tmp
 
-# Игнорим ненужные файлы
+# Ignore database config
 config/database.yml
-public/uploads/*
+
+# Ignore IDE files
+.idea/

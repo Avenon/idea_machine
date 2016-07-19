@@ -12,12 +12,19 @@ require "rails_helper"
       # exercise
       #get "/api/ideas/#{idea.id}", {params: :here} ,  {auth_header: :here, version_header: :here} # last two hashes are examples
       #get "http://localhost:3000/api/v1/ideas/1"
-      get "http://localhost:3000/api/v1/ideas/1"
+
+      #get "/api/v1/ideas/1"
+
       # validate
       # expect_json_sizes 1
       # expect_json_keys 'idea', [:id, :description, :user_id, :project_id]
-      puts idea.description
-      puts idea.id
+
+      #expect_json(description: 'test1')
+
+      response = nil
+      uri, path = '/api/v1/ideas/1'
+      Net::HTTP.start(uri, 80)
+      puts response['content-type']
 
       # cleanup
       # We defined database_cleaner in rails_helper.rb
