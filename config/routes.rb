@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     get 'edit_profile', to: 'devise/registrations#edit'
     get 'sign_out', to: 'devise/sessions#destroy'
   end
-
+  get 'tags/:tag', to: 'ideas#index', as: "tag"
 
   #mount IdeaExternal::API => '/api'
   mount GrapeSwaggerRails::Engine => '/swagger'
