@@ -1,53 +1,50 @@
 module API
   module V1
     class Projects < Grape::API
+      version 'v1'
+      format :json
 
       resource :projects do
 
-        version 'v1'
-        format :json
-
-        desc "Return a list of projects", { :entity => API::V1::Entities::Project }
+        desc 'List all projects.'
         params do
           optional :limit, type: String, desc: 'limit view projects'
         end
-
-        get '/' , http_codes: [
-          [200, 'Ok', API::V1::Entities::Project]
-        ] do
+        get '/' do
           projects = Project.all.limit(params[:limit])
-          present projects, with: API::V1::Entities::Project, type: params[:type]
+          projects.map do |project|
+            { id: project.id,
+              descrition: project.descrition,
+              user_id: project.user_id,
+              title: project.title }
+            end
         end
 
-        desc 'Create a new project.', { :entity => API::V1::Entities::Project }
+        desc 'Create a project.'
         params do
           requires :projecttitle, type: String, desc: 'Project title'
           requires :projectdescription, type: String, desc: 'Project description'
           requires :user, type: String, desc: 'User id'
+          # optional :test, type: String, desc: 'test' является необязательным параметром
+        end
+        post do
+          Project.create!({
+            user_id: params[:user],
+            title: params[:projecttitle],
+            descrition: params[:projectdescription]
+            })
         end
 
-        post '/', http_codes: [
-          [200, "Ok", API::V1::Entities::Project]
-        ] do
-          project = Project.new
-          project.user_id = params[:user]
-          project.title = params[:projecttitle]
-          project.descrition = params[:projectdescription]
-          project.save
-
-          status 200
-          present project, with: API::V1::Entities::Project
-        end
-
-        desc 'Read a project.', { :entity => API::V1::Entities::Project }
+        desc 'Read a project.'
         params do
           requires :id, type: String, desc: 'Project id'
         end
-        get ':id', http_codes: [
-          [200, 'Ok', API::V1::Entities::Project]
-        ]  do
+        get ':id' do
           project = Project.find(params[:id])
-          present project, with: API::V1::Entities::Project, type: params[:type]
+            { id: project.id,
+              descrition: project.descrition,
+              user_id: project.user_id,
+              title: project.title }
         end
 
         desc 'Update a project.'
@@ -57,9 +54,7 @@ module API
           requires :projectdescription, type: String, desc: 'Project description'
           requires :user, type: String, desc: 'User id'
         end
-        put ':id', http_codes: [
-          [200, 'Ok', API::V1::Entities::Project]
-        ]  do
+        put ':id' do
           Project.find(params[:id]).update({
               user_id: params[:user],
               title: params[:projecttitle],
@@ -67,14 +62,11 @@ module API
             })
         end
 
-        desc 'Delete a project.', { :entity => API::V1::Entities::Project }
+        desc 'Delete a project.'
         params do
           requires :id, type: String, desc: 'Project id'
         end
-
-        delete ':id', http_codes: [
-          [200, 'Ok', API::V1::Entities::Project]
-        ]  do
+        delete ':id' do
           Project.find(params[:id]).destroy
         end
       end

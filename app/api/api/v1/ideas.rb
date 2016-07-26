@@ -1,49 +1,52 @@
 module API
   module V1
     class Ideas < Grape::API
-      version 'v1'
-      format :json
 
       resource :ideas do
 
-        desc 'List all ideas.'
+        version 'v1'
+        format :json
+
+        desc "Return a list of ideas", { :entity => API::V1::Entities::Idea }
         params do
           optional :limit, type: String, desc: 'limit view ideas'
         end
-        get '/' do
+
+        get '/' , http_codes: [
+          [200, 'Ok', API::V1::Entities::Idea]
+        ] do
           ideas = Idea.all.limit(params[:limit])
-          ideas.map do |idea|
-            {id: idea.id,
-             description: idea.description,
-             user_id: idea.user_id,
-             project_id: idea.project_id}
-          end
+          present ideas, with: API::V1::Entities::Idea, type: params[:type]
         end
 
-        desc 'Create an idea.'
+        desc "Create a new idea", { :entity => API::V1::Entities::Idea }
         params do
           requires :ideadescription, type: String, desc: 'Idea description'
           requires :user, type: String, desc: 'User id'
-          # optional :test, type: String, desc: 'test' является необязательным параметром
-        end
-        post do
-          Idea.create!({
-                           user_id: params[:user],
-                           description: params[:ideadescription]
-                       })
-          #Idea.create! params.permit(:user_id, :description)
         end
 
-        desc 'Read an idea.'
+        post '/', http_codes: [
+          [200, "Ok", API::V1::Entities::Idea]
+        ] do
+          idea = Idea.new
+          idea.user_id = params[:user]
+          idea.description = params[:ideadescription]
+          idea.save
+
+          status 200
+          present idea, with: API::V1::Entities::Idea
+        end
+
+        desc 'Read an idea.', { :entity => API::V1::Entities::Idea }
         params do
           requires :id, type: String, desc: 'Idea id'
         end
-        get ':id' do
+
+        get ':id', http_codes: [
+          [200, "Ok", API::V1::Entities::Idea]
+        ] do
           idea = Idea.find(params[:id])
-          {idea: {id: idea.id,
-                  description: idea.description,
-                  user_id: idea.user_id,
-                  project_id: idea.project_id}}
+          present idea, with: API::V1::Entities::Idea, type: params[:type]
         end
 
         desc 'Update an idea.'
@@ -52,18 +55,22 @@ module API
           requires :ideadescription, type: String, desc: 'Idea description'
           requires :user, type: String, desc: 'User id'
         end
-        put ':id' do
+        put ':id', http_codes: [
+          [200, "Ok", API::V1::Entities::Idea]
+        ]  do
           Idea.find(params[:id]).update({
-                                            user_id: params[:user],
-                                            description: params[:ideadescription]
-                                        })
+            user_id: params[:user],
+            description: params[:ideadescription]
+          })
         end
 
         desc 'Delete an idea.'
         params do
           requires :id, type: String, desc: 'Idea id'
         end
-        delete ':id' do
+        delete ':id', http_codes: [
+          [200, "Ok", API::V1::Entities::Idea]
+        ]  do
           Idea.find(params[:id]).destroy
         end
       end

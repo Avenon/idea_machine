@@ -26,8 +26,12 @@ gem 'devise'
 gem 'slim-rails'
 gem 'bootstrap-sass', '~> 3.3.6'
 gem 'grape'
+gem 'grape-entity'
 gem 'grape-swagger'
 gem 'grape-swagger-rails'
+gem 'grape-swagger-entity'
+gem 'grape-swagger-representable'
+
 gem 'rack-fiber_pool'
 gem 'doorkeeper'
 

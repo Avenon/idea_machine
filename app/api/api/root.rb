@@ -1,5 +1,6 @@
 require 'doorkeeper/grape/helpers'
 
+
 module API
   class Root < Grape::API
     helpers Doorkeeper::Grape::Helpers
