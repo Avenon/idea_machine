@@ -15,7 +15,7 @@ module API
       end
 
       class Project < Grape::Entity
-        expose :project
+        expose :project do
           expose :id, documentation: { type: "Integer", desc: "Project's unique id"}
           expose :descrition, documentation: {type: "String", desc: "Project description information"}
           expose :user_id, documentation: {type: "Integer", desc: "User's unique id who create a project"}
@@ -24,7 +24,7 @@ module API
       end
 
       class User < Grape::Entity
-        expose :user
+        expose :user do
           expose :id, documentation: { type: "Integer", desc: "User's unique id"}
           expose :email, documentation: {type: "String", desc: "User email"}
         end

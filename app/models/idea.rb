@@ -1,7 +1,7 @@
 class Idea < ActiveRecord::Base
   belongs_to :user
   belongs_to :project
-  has_many :taggings
+  has_many :taggings, dependent: :destroy
   has_many :tags, through: :taggings
   validates :description, presence: true
 
