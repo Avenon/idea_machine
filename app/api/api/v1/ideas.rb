@@ -12,11 +12,10 @@ module API
           optional :limit, type: String, desc: 'limit view ideas'
         end
 
-        get '/' , http_codes: [
-          [200, 'Ok', API::V1::Entities::Idea]
+        get '/', http_codes: [
+          [200, "Ok", API::V1::Entities::Idea]
         ] do
-          ideas = Idea.all.limit(params[:limit])
-          present ideas, with: API::V1::Entities::Idea, type: params[:type]
+          present Idea.all.limit(params[:limit]), with: API::V1::Entities::Idea, type: params[:type]
         end
 
         desc "Create a new idea", { :entity => API::V1::Entities::Idea }
