@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :tagging do
-    idea nil
-    tag nil
+    idea 1
+    tag 1
   end
 end
