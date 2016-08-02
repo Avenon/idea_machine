@@ -1,19 +1,20 @@
 - if user_signed_in?
-  div class = "row"
-    div class="col-md-1"
-    div class="col-md-5"
-      br
+  div class="container"
+    div class="col-md-6"
       = render partial: "ideas/new"
-      h4 = "Tags Cloud"
+
+      h4 Облако тэгов
       - tag_cloud Tag.counts.group("tags.name"), %w{css1 css2 css3 css4} do |tag, css_class|
         = link_to tag.name, tag_path(tag.name), class: css_class
         | &nbsp;
     div class="col-md-6"
       div id="ideas"
         = render partial: @ideas.reverse
-else
-  div class = "row"
-    div class="col-md-1"
-    div class="col-md-5"
-      br
-      h4 = "Зарегистрируйтесь или войдите под своим логином"
+- else
+  div class="container"
+    div class="jumbotron"
+      h1 = "Генератор идей"
+      p = "Данное приложение поможет вам постоянно тренировать мозг, на предмет генерации идей все, что вам нужно - это ежедневно придумывать идеи, пусть самые нелепые"
+      p = "Также данное приложение поможет вам систематизировать ваши идеи, группируя их, вы всегда сможете вернуться к проблемам, или проектам, для которых вы придумывали данные идеи"
+      p = "Попробуйте наше приложение, все, что вам нужно это войти под своим логином, или зарегистрироваться"
+      = link_to "Sign up", sign_up_path, class: "btn btn-lg btn-primary"

@@ -1,10 +1,9 @@
-= div_for idea do
-  = h(idea.description)
+= div_for idea, class: "well" do
+  div class="pull-right"
+    sup = "From " + time_ago_in_words(idea.created_at)
+    = link_to idea_path(idea), method: :delete do
+      span class="glyphicon glyphicon-trash"
   br
-  sup = "From " + time_ago_in_words(idea.created_at)
-  br
-  div class="col-md-9"
-  = link_to (t :delete), idea_path(idea), method: :delete, data: { confirm: (t :confirm_del) }, class: "btn btn-danger btn-xs"
-  br
-  = raw tag_links(idea.all_tags)
+  = idea.description
   hr
+  = raw tag_links(idea.all_tags)
