@@ -1,12 +1,19 @@
-div class = "row"
-  div class="col-md-1"
-  div class="col-md-5"
-    br
-    = render partial: "ideas/new"
-    h4 = "Tags Cloud"
-    - tag_cloud Tag.counts.group("tags.name"), %w{css1 css2 css3 css4} do |tag, css_class|
-      = link_to tag.name, tag_path(tag.name), class: css_class
-      | &nbsp;
-  div class="col-md-6"
-    div id="ideas"
-      = render partial: @ideas.reverse
+- if user_signed_in?
+  div class = "row"
+    div class="col-md-1"
+    div class="col-md-5"
+      br
+      = render partial: "ideas/new"
+      h4 = "Tags Cloud"
+      - tag_cloud Tag.counts.group("tags.name"), %w{css1 css2 css3 css4} do |tag, css_class|
+        = link_to tag.name, tag_path(tag.name), class: css_class
+        | &nbsp;
+    div class="col-md-6"
+      div id="ideas"
+        = render partial: @ideas.reverse
+else
+  div class = "row"
+    div class="col-md-1"
+    div class="col-md-5"
+      br
+      h4 = "Зарегистрируйтесь или войдите под своим логином"

@@ -1,12 +1,13 @@
 class IdeasController < ApplicationController
-  before_action :authenticate_user!
   before_action :set_idea, only: [:show, :edit, :update, :destroy]
 
   def index
-    if params[:tag]
-      @ideas = Idea.tagged_with(params[:tag])
-    else
-      @ideas = current_user.ideas
+    if user_signed_in?
+      if params[:tag]
+        @ideas = Idea.tagged_with(params[:tag])
+      else
+        @ideas = current_user.ideas
+      end
     end
   end
 
