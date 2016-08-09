@@ -51,7 +51,7 @@ group :development, :test do
   gem 'factory_girl_rails'
   gem 'capybara'
   gem 'database_cleaner'
-
+  gem 'poltergeist'
   # remove assets noise
   gem 'quiet_assets'
 

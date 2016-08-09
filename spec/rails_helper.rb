@@ -11,7 +11,7 @@ require 'open-uri'
 require 'nokogiri'
 require "net/http"
 require 'json'
-
+require 'capybara/poltergeist'
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -79,4 +79,7 @@ RSpec.configure do |config|
   config.after(:each) do # ну и после каждого теста чистильшик подчишает базу
     DatabaseCleaner.clean
   end
+
+  #Добавим новый драйвер JS для capybara
+  Capybara.javascript_driver = :poltergeist
 end
