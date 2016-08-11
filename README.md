@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/Avenon/idea_machine.svg?branch=master)](https://travis-ci.org/Avenon/idea_machine)
+
 # Генератор идей #
 Данное приложение позволяет вам легко организовывать и систематизировать ваши идеи. Также приложение позволяет прокачивать ваш мозг, на предмет придумывания идей.
 
