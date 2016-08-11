@@ -1,0 +1,11 @@
+language: ruby
+rvm:
+- "2.2"
+
+before_script:
+- psql -c 'create database ideamachine_test;' -U postgres
+- cp config/database.yml.travis config/database.yml
+
+script:
+- bundle exec rspec spec
+- bundle exec rake db:migrate RAILS_ENV=test
