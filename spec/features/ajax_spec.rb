@@ -1,20 +1,34 @@
 require "rails_helper"
 
-describe 'Check ajax' do
-  #let!(:user) { create(:user, email: "test@test.ru", password: "test", password_confirmation: "test") }
-  #let!(:card) { FactoryGirl.create(:card, user_id: user.id) }
-  let!(:user) { FactoryGirl.create(:user) }
+describe 'Check ajax', js: true do
 
-  it "Card should be create with ajax" do
+  let!(:user) { create(:user, email: "test555@test555.ru", password: "test1234") }
 
-    visit root_path
-    click_link "Sign in"
-    fill_in :user_email, with: "test@test.ru"
-    fill_in :user_password, with: "test1234"
-    click_button "Log in"
+  before(:each) do
+    login("test555@test555.ru", "test1234")
+  end
+
+  it "Idea should be create with ajax in database", driver: :poltergeist do
+
     fill_in :idea_description, with: "Idea test"
     click_button "Отправить"
-    #click_link I18n.t :add_card
-    expect(page.status_code).to eq(200)
+    wait_for_ajax
+    expect(Idea.last.description).to eq("Idea test")
+  end
+
+  it "New idea should be view on current page after submit", driver: :poltergeist do
+
+    fill_in :idea_description, with: "Idea test"
+    click_button "Отправить"
+    wait_for_ajax
+    expect(page.find(:xpath, ".//*[@id='idea_1']").text).to eq('From less than a minute Idea test')
+  end
+
+  it "Div block witn new idea should be contain class pull-right", driver: :poltergeist do
+
+    fill_in :idea_description, with: "Idea test"
+    click_button "Отправить"
+    wait_for_ajax
+    expect(page).to have_css('.pull-right')
   end
 end

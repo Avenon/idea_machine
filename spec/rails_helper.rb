@@ -12,6 +12,7 @@ require 'nokogiri'
 require "net/http"
 require 'json'
 require 'capybara/poltergeist'
+
 # Add additional requires below this line. Rails is not loaded until this point!
 
 # Requires supporting ruby files with custom matchers and macros, etc, in
@@ -41,7 +42,7 @@ RSpec.configure do |config|
   # If you're not using ActiveRecord, or you'd prefer not to run each of your
   # examples within a transaction, remove the following line or assign false
   # instead of true.
-  config.use_transactional_fixtures = true
+  config.use_transactional_fixtures = false
 
   # RSpec Rails can automatically mix in different behaviours to your tests
   # based on their file location, for example enabling you to call `get` and
@@ -64,6 +65,7 @@ RSpec.configure do |config|
   # config.filter_gems_from_backtrace("gem name")
   # Добавим данные блоки для избежании коллизии данных
   # Настройки для удаления данных из базы данных после тестирования
+
   config.before(:suite) do # выполняеться этот код перед запуском всего файла со спеками
     DatabaseCleaner.clean_with(:truncation) # удаляются все данные при помощи стратегии truncation
   end
@@ -72,6 +74,7 @@ RSpec.configure do |config|
   end
   config.before(:each, js: true) do # для каждой спеки помеченной JS-TRUE, используем стратегию truncation. Которая создаёт данные в таблице для теста и очишает её по окончанию
     DatabaseCleaner.strategy = :truncation
+    #DatabaseCleaner.strategy = :transaction
   end
   config.before(:each) do # в начале каждого теста устанавливаем чистильшик базы для отслеживания изменений в базе
     DatabaseCleaner.start

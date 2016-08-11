@@ -52,6 +52,7 @@ group :development, :test do
   gem 'capybara'
   gem 'database_cleaner'
   gem 'poltergeist'
+  gem 'selenium-webdriver'
   # remove assets noise
   gem 'quiet_assets'
 
