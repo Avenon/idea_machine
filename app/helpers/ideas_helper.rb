@@ -4,7 +4,7 @@ module IdeasHelper
   end
 
   def tag_cloud(tags, classes, userid)
-    ideas = current_user.ideas
+    ideas = Idea.where("user_id = ?", userid)
     idea_ids = []
     ideas.map do |i|
       idea_ids << i.id

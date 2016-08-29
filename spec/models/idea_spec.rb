@@ -1,11 +1,12 @@
 require 'rails_helper'
 
 RSpec.describe Idea, type: :model do
-  let!(:idea) { FactoryGirl.create(:idea,id: 1, description: "idea_test") }
+  let!(:idea) { FactoryGirl.create(:idea,id: 1, description: "idea_test", user_id: 5) }
   let!(:tag1) { FactoryGirl.create(:tag, id:2, name: "tag1_test1") }
   let!(:tag2) { FactoryGirl.create(:tag, id:3, name: "tag2_test2") }
   let!(:tagging1) { FactoryGirl.create(:tagging, idea_id: 1, tag_id:2) }
   let!(:tagging2) { FactoryGirl.create(:tagging, idea_id: 1, tag_id:3) }
+  let!(:user) { create(:user, email: "test555@test555.ru", password: "test1234") }
 
   it "Method all_tags should be return tags separate by comma" do
     idea = Idea.where("id = ?", 1)
@@ -32,7 +33,7 @@ RSpec.describe Idea, type: :model do
   end
 
   it "Method tagged_with should be return all ideas by tag" do
-    idea = Idea.tagged_with("tag2_test2")
+    idea = Idea.tagged_with(user.id, "tag2_test2")
     expect(idea.last.description).to eq("idea_test")
   end
 end
