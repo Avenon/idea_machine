@@ -1,7 +1,7 @@
 = div_for idea, class: "well" do
   div class="pull-right"
     sup = "From " + time_ago_in_words(idea.created_at)
-    = link_to edit_idea_path(idea), remote: true do
+    = link_to edit_idea_path(idea)
       span class="glyphicon glyphicon-pencil"
     = link_to idea_delete_path(idea), remote: true do
       span class="glyphicon glyphicon-trash"

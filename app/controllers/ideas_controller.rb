@@ -38,15 +38,17 @@ class IdeasController < ApplicationController
     @idea.update_attributes(idea_params)
 
     if @idea.errors.empty?
-      redirect_to @idea
-    else
-      render "edit"
+      redirect_to root_path
     end
+  end
+
+  def delete
+    @idea = Idea.find(params[:idea_id])
   end
 
   def destroy
     @idea.destroy
-    redirect_to ideas_path
+    redirect_to root_path
   end
 
   private

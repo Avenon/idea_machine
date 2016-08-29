@@ -2,8 +2,15 @@ Rails.application.routes.draw do
 
   use_doorkeeper
   devise_for :users, path: 'auth', path_names: { sign_in: 'login', sign_out: 'logout', password: 'secret', confirmation: 'verification', unlock: 'unblock', registration: 'register', sign_up: 'cmon_let_me_in' }
+
+  resources :ideas do
+    get "delete", to: 'ideas#delete'
+  end
+
   root to: "ideas#index"
-  resources :ideas
+
+
+
   resources :users
   resources :projects
   devise_scope :user do
@@ -13,6 +20,7 @@ Rails.application.routes.draw do
     get 'sign_out', to: 'devise/sessions#destroy'
   end
   get 'tags/:tag', to: 'ideas#index', as: "tag"
+
 
   #mount IdeaExternal::API => '/api'
   mount API::Root => '/'

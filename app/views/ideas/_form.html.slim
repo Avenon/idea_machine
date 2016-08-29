@@ -1,2 +1,13 @@
-= f.label :description, (t :your_idea)
-= f.text_field_tag :description, as: :string, :required => false
+div class="modal-dialog"
+  div class="modal-content"
+    = form_for @idea, remote: true, html: { style: "display:inline;" } do |f|
+      div class="modal-body"
+        ul class="errors"
+
+        div class="form-group"
+          = f.label :description, class:"control-label"
+          = f.text_area :description, class: "form-control"
+
+      div class="modal-footer"
+        = f.submit class: "btn btn-primary"
+        = link_to "Cancel", "#", class: "btn", data: {dismiss: "modal"}
