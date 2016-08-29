@@ -4,7 +4,10 @@ class IdeasController < ApplicationController
   def index
     if user_signed_in?
       if params[:tag]
-        @ideas = Idea.tagged_with(params[:tag])
+        @ideas = Idea.select("ideas.id, ideas.description, ideas.created_at").tagged_with(current_user.id, params[:tag]).group("ideas.id, ideas.description, ideas.created_at")
+        #@ideas.map do |i|
+        #  puts i.description
+        #end
       else
         @ideas = current_user.ideas
       end
@@ -19,7 +22,9 @@ class IdeasController < ApplicationController
   end
 
   def create
+    puts params[:all_tags]
     @idea = Idea.new(idea_params)
+
     respond_to do |format|
       if @idea.save
         #redirect_to ideas_path

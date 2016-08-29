@@ -4,7 +4,7 @@
       = render partial: "ideas/new"
 
       h4 Облако тэгов
-      - tag_cloud Tag.counts.group("tags.name"), %w{tag-xs tag-sm tag-md tag-lg} do |tag, css_class|
+      - tag_cloud Tag.counts.group("tags.name"), %w{tag-xs tag-sm tag-md tag-lg}, current_user.id do |tag, css_class|
         = link_to tag.name, tag_path(tag.name), class: css_class
         | &nbsp;
     div class="col-md-6"
